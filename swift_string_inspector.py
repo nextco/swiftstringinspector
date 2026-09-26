@@ -5,7 +5,7 @@ import idautils
 import ida_ida
 import struct
 import idc
-from PyQt5 import QtWidgets
+from PySide6 import QtWidgets
 
 # IDA CONSTANTS SUCKS. please Ifak do something.
 NN_adr = 81
@@ -40,7 +40,7 @@ class SwiftInspectorChoose(idaapi.Choose):
 
 class SwiftStringInspectorForm(ida_kernwin.PluginForm):
     def OnCreate(self, form):
-        self.parent = self.FormToPyQtWidget(form)
+        self.parent = self.FormToPySideWidget(form)
         self.init_ui()
 
     def init_ui(self):
