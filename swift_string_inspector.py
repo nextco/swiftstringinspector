@@ -5,7 +5,11 @@ import idautils
 import ida_ida
 import struct
 import idc
-from PySide6 import QtWidgets
+# Qt bindings: prefer PySide6 (Qt6, IDA >= 9.2), fall back to PyQt5 on older IDA
+try:
+    from PySide6 import QtWidgets
+except ImportError:
+    from PyQt5 import QtWidgets
 
 # IDA CONSTANTS SUCKS. please Ifak do something.
 NN_adr = 81
@@ -40,7 +44,8 @@ class SwiftInspectorChoose(idaapi.Choose):
 
 class SwiftStringInspectorForm(ida_kernwin.PluginForm):
     def OnCreate(self, form):
-        self.parent = self.FormToPySideWidget(form)
+        # Legacy name; in IDA 9.2+ this resolves to the native PySide6/shiboken6 path
+        self.parent = self.FormToPyQtWidget(form)
         self.init_ui()
 
     def init_ui(self):
